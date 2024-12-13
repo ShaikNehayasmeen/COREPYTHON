@@ -1,0 +1,17 @@
+import streamlit as st
+st.title("Gross Salary Calculator")
+basic_sal = st.number_input("Enter your basic salary:", min_value=0, step=1)
+if st.button("Calculate Gross Salary"):
+    hra = 0
+    da = 0
+    if basic_sal <= 10000:
+        hra = (67 / 100) * basic_sal
+        da = (73 / 100) * basic_sal
+    elif 10000 < basic_sal <= 20000:
+        hra = (69 / 100) * basic_sal
+        da = (76 / 100) * basic_sal
+    elif basic_sal > 20000:
+        hra = (73 / 100) * basic_sal
+        da = (89 / 100) * basic_sal
+    GS = hra + da + basic_sal
+    st.success(f"Your Gross Salary is: {GS}")
