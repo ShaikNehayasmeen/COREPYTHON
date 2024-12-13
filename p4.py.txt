@@ -1,0 +1,72 @@
+class Bank:
+    total=100000
+    def deposite(self):
+            amount=int(input("enter amount"))
+            if(amount<100):
+                print("amount sholud be greate rthan 100")
+            if((amount%100)!=0):
+                print("only multiples of 100")
+            if(amount>50000):
+                print("max 50k")
+            self.total=self.total+amount
+            print(self.total)
+
+    def withdraw(self):
+        chance = 0
+        while (chance < 3):
+            draw_amount=int(input("enter  withdraw amount"))
+            flag=True
+            if(draw_amount<100):
+                print("can not be less than 100")
+                flag=False
+            if ((draw_amount % 100) != 0):
+                        print("only multiples of 100")
+                        flag = False
+            if(draw_amount>self.total):
+                        print("less than total")
+                        flag = False
+            if(self.total<500 and draw_amount<=500):
+                        print("min balance is 500")
+                        flag = False
+            if(draw_amount>=20000):
+                        print("transaction only 20k")
+                        flag = False
+            if flag:
+                chance = chance + 1
+                self.total=self.total-draw_amount
+                print(self.total)
+        print("chances exceeded")
+
+
+    def view(self):
+                print("1.deposit")
+                print("2.withdraw")
+                print("3.balance")
+                print("0.exit")
+                choose=int(input("enter your choice"))
+                if choose==1:
+                    obj.deposite()
+                elif choose==2:
+                    obj.withdraw()
+                elif choose==3:
+                     print("total balance is:",self.total)
+                else:
+                    print("enter any choice")
+
+    def validate(self):
+            chance = 0
+            while (chance < 3):
+                print("Welcome to UNION BANK")
+                pin = int(input("enter your pin"))
+
+                if(pin==1234):
+                    obj.view()
+                    break
+                else:
+                    chance=chance+1
+                    print("invalid pin number,try after")
+            if(chance==3):
+             print("try after some time")
+obj = Bank()
+obj.validate()
+obj.view()

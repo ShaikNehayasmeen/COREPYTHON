@@ -1,0 +1,27 @@
+projectScore = int(input("Enter your project score: "))
+internalScore = int(input("Enter your internal score: "))
+externalScore = int(input("Enter your external score: "))
+
+
+if (projectScore >= 0.5 * projectScore) and (internalScore >= 0.5 * internalScore) and (externalScore >= 0.5 * externalScore):
+    # Calculate total score based on the weights
+    totalScore = (0.7 * projectScore) + (0.1 * internalScore) + (0.2 * externalScore)
+    print(f"Total Score: {totalScore:.2f}")
+
+   
+    if totalScore > 90:
+        print("Grade: A")
+    elif totalScore >= 80:
+        print("Grade: B")
+    elif totalScore >= 70:
+        print("Grade: C")
+    else:
+        print("Result: Fail")
+else:
+   
+    if projectScore < 50:
+        print("Result: Failed in Project")
+    if internalScore < 50:
+        print("Result: Failed in Internal")
+    if externalScore < 50:
+        print("Result: Failed in External")
