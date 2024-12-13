@@ -1,0 +1,16 @@
+import streamlit as st
+st.header("Student's Garde Calculator")
+projectScore = st.number_input("Enter your project score")
+internalScore = st.number_input("Enter your internal score")
+externalScore = st.number_input("Enter your external score")
+if st.button("calculate"):
+    totalScore = (0.7 * projectScore) + (0.1 * internalScore) + (0.2 * externalScore)
+    st.success(f"Total Score: {totalScore}")
+    if totalScore > 90:
+        st.success("Grade A")
+    elif totalScore >= 80 and totalScore < 90:
+        st.success("Grade B")
+    elif totalScore >= 70 and totalScore < 80:
+        st.success("Grade C")
+    else:
+        st.success("Fail")
