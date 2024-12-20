@@ -1,0 +1,332 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 5
+Server version: 5.5.16 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2011, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use Neha88;
+Database changed
+mysql> Show tables;
++------------------+
+| Tables_in_neha88 |
++------------------+
+| employees        |
+| student          |
++------------------+
+2 rows in set (0.00 sec)
+
+mysql> select *from Student;
++-----+------------+-------+-----------+------------+--------+
+| Sno | Sname      | marks | city      | mobile     | gender |
++-----+------------+-------+-----------+------------+--------+
+|   1 | Neha       |    98 | Hyderabad | 8179151248 | Female |
+|   2 | Charitha   |    97 | Chennai   | 8189123456 | Female |
+|   3 | Priya      |    96 | Delhi     | 8189123478 | Female |
+|   4 | Vyshnavi   |    92 | Gurgaon   | 8179151292 | Female |
+|   5 | Akhila     |    91 | Bangalore | 8189123412 | Female |
+|   6 | Jagana     |    96 | Mumbai    | 7889123478 | Female |
+|   7 | Aishwarya  |    93 | Lucknow   | 6689123478 | Female |
+|   8 | Ayzal      |    92 | Turkey    | 9189123478 | Female |
+|   9 | Esbilgic   |    96 | Paris     | 8889123478 | Female |
+|  10 | Mubashirra |    96 | Paris     | 8889123478 | Female |
+|  11 | Aira       |    90 | Saudi     | 9789123478 | Female |
+|  12 | AyezaKhan  |    94 | Istanbul  | 9289123478 | Female |
+|  13 | Zaid       |    96 | Pakistan  | 9089123478 | Male   |
+|  14 | Wahaj      |    92 | Hyderabad | 9089123478 | Male   |
+|  15 | Engin      |    90 | Canada    | 9089123478 | Male   |
++-----+------------+-------+-----------+------------+--------+
+15 rows in set (0.00 sec)
+
+mysql>  select *from Student where city="Paris";
++-----+------------+-------+-------+------------+--------+
+| Sno | Sname      | marks | city  | mobile     | gender |
++-----+------------+-------+-------+------------+--------+
+|   9 | Esbilgic   |    96 | Paris | 8889123478 | Female |
+|  10 | Mubashirra |    96 | Paris | 8889123478 | Female |
++-----+------------+-------+-------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql>  select *from Student where city="Paris" or "Hyderabad";
++-----+------------+-------+-------+------------+--------+
+| Sno | Sname      | marks | city  | mobile     | gender |
++-----+------------+-------+-------+------------+--------+
+|   9 | Esbilgic   |    96 | Paris | 8889123478 | Female |
+|  10 | Mubashirra |    96 | Paris | 8889123478 | Female |
++-----+------------+-------+-------+------------+--------+
+2 rows in set, 1 warning (0.00 sec)
+
+mysql>  select *from Student where city in("Hyderabad","Paris");
++-----+------------+-------+-----------+------------+--------+
+| Sno | Sname      | marks | city      | mobile     | gender |
++-----+------------+-------+-----------+------------+--------+
+|   1 | Neha       |    98 | Hyderabad | 8179151248 | Female |
+|   9 | Esbilgic   |    96 | Paris     | 8889123478 | Female |
+|  10 | Mubashirra |    96 | Paris     | 8889123478 | Female |
+|  14 | Wahaj      |    92 | Hyderabad | 9089123478 | Male   |
++-----+------------+-------+-----------+------------+--------+
+4 rows in set (0.00 sec)
+
+mysql>                   SELECT *
+    ->                       FROM Student
+    ->     WHERE (city = 'Hyderabad' AND gender = 'Female')
+    ->        OR (city = 'Canada' AND gender = 'Male')
+    ->        OR city = 'Bangalore';
++-----+--------+-------+-----------+------------+--------+
+| Sno | Sname  | marks | city      | mobile     | gender |
++-----+--------+-------+-----------+------------+--------+
+|   1 | Neha   |    98 | Hyderabad | 8179151248 | Female |
+|   5 | Akhila |    91 | Bangalore | 8189123412 | Female |
+|  15 | Engin  |    90 | Canada    | 9089123478 | Male   |
++-----+--------+-------+-----------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql>
+mysql> SELECT *
+    ->  FROM Student
+    ->  WHERE marks BETWEEN 80 AND 90
+    ->  AND city IN ('Hyderabad', 'Bangalore');
+Empty set (0.00 sec)
+
+mysql> SELECT *
+    ->     FROM Student
+    ->     WHERE marks BETWEEN 90 AND 100
+    ->       AND city IN ('Hyderabad', 'Bangalore');
++-----+--------+-------+-----------+------------+--------+
+| Sno | Sname  | marks | city      | mobile     | gender |
++-----+--------+-------+-----------+------------+--------+
+|   1 | Neha   |    98 | Hyderabad | 8179151248 | Female |
+|   5 | Akhila |    91 | Bangalore | 8189123412 | Female |
+|  14 | Wahaj  |    92 | Hyderabad | 9089123478 | Male   |
++-----+--------+-------+-----------+------------+--------+
+3 rows in set (0.00 sec)
+
+mysql>  SELECT *
+    ->    FROM Student
+    ->    WHERE (city = 'Hyderabad' AND gender = 'Male' AND marks > 70)
+    ->       OR (gender = 'Female' AND marks > 50);
++-----+------------+-------+-----------+------------+--------+
+| Sno | Sname      | marks | city      | mobile     | gender |
++-----+------------+-------+-----------+------------+--------+
+|   1 | Neha       |    98 | Hyderabad | 8179151248 | Female |
+|   2 | Charitha   |    97 | Chennai   | 8189123456 | Female |
+|   3 | Priya      |    96 | Delhi     | 8189123478 | Female |
+|   4 | Vyshnavi   |    92 | Gurgaon   | 8179151292 | Female |
+|   5 | Akhila     |    91 | Bangalore | 8189123412 | Female |
+|   6 | Jagana     |    96 | Mumbai    | 7889123478 | Female |
+|   7 | Aishwarya  |    93 | Lucknow   | 6689123478 | Female |
+|   8 | Ayzal      |    92 | Turkey    | 9189123478 | Female |
+|   9 | Esbilgic   |    96 | Paris     | 8889123478 | Female |
+|  10 | Mubashirra |    96 | Paris     | 8889123478 | Female |
+|  11 | Aira       |    90 | Saudi     | 9789123478 | Female |
+|  12 | AyezaKhan  |    94 | Istanbul  | 9289123478 | Female |
+|  14 | Wahaj      |    92 | Hyderabad | 9089123478 | Male   |
++-----+------------+-------+-----------+------------+--------+
+13 rows in set (0.00 sec)
+
+mysql> SELECT *
+    ->      FROM Student
+    ->     WHERE (city = 'Hyderabad' AND gender = 'Male' AND marks > 70)
+    ->       OR ( city='Hyderabad' AND gender = 'Female' AND marks > 50);
++-----+-------+-------+-----------+------------+--------+
+| Sno | Sname | marks | city      | mobile     | gender |
++-----+-------+-------+-----------+------------+--------+
+|   1 | Neha  |    98 | Hyderabad | 8179151248 | Female |
+|  14 | Wahaj |    92 | Hyderabad | 9089123478 | Male   |
++-----+-------+-------+-----------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql>  SELECT *
+    ->      FROM Student
+    ->     WHERE Sname LIKE 'N%A';
++-----+-------+-------+-----------+------------+--------+
+| Sno | Sname | marks | city      | mobile     | gender |
++-----+-------+-------+-----------+------------+--------+
+|  Ctrl-C -- sending "KILL QUERY 5" to server ...
+ 1Ctrl-C -- query aborted.
+ | Neha  |    98 | Hyderabad | 8179151248 | Female |
++-----+-------+-------+-----------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql>  SELECT city, COUNT(*) AS number_of_students
+    ->     FROM Student
+    ->     GROUP BY city;
+ERROR 1317 (70100): Query execution was interrupted
+mysql> select city,count(*) AS number_of_students from student GROUP BY city;
++-----------+--------------------+
+| city      | number_of_students |
++-----------+--------------------+
+| Bangalore |                  1 |
+| Canada    |                  1 |
+| Chennai   |                  1 |
+| Delhi     |                  1 |
+| Gurgaon   |                  1 |
+| Hyderabad |                  2 |
+| Istanbul  |                  1 |
+| Lucknow   |                  1 |
+| Mumbai    |                  1 |
+| Pakistan  |                  1 |
+| Paris     |                  2 |
+| Saudi     |                  1 |
+| Turkey    |                  1 |
++-----------+--------------------+
+13 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM Student
+    -> WHERE city = 'Hyderabad' AND gender = 'Male';
++-----+-------+-------+-----------+------------+--------+
+| Sno | Sname | marks | city      | mobile     | gender |
++-----+-------+-------+-----------+------------+--------+
+|  14 | Wahaj |    92 | Hyderabad | 9089123478 | Male   |
++-----+-------+-------+-----------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> SELECT city, AVG(score) AS average_score
+    -> FROM Student
+    -> GROUP BY city
+    -> ORDER BY average_score DESC
+    -> LIMIT 1;
+ERROR 1054 (42S22): Unknown column 'score' in 'field list'
+mysql> SELECT city, AVG(marks) AS average_score
+    -> FROM Student
+    -> GROUP BY city
+    -> ORDER BY average_score DESC
+    -> LIMIT 1;
++---------+---------------+
+| city    | average_score |
++---------+---------------+
+| Chennai |            97 |
++---------+---------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT city, MAX(marks) AS top_score
+    -> FROM Student
+    -> GROUP BY city;
++-----------+-----------+
+| city      | top_score |
++-----------+-----------+
+| Bangalore |        91 |
+| Canada    |        90 |
+| Chennai   |        97 |
+| Delhi     |        96 |
+| Gurgaon   |        92 |
+| Hyderabad |        98 |
+| Istanbul  |        94 |
+| Lucknow   |        93 |
+| Mumbai    |        96 |
+| Pakistan  |        96 |
+| Paris     |        96 |
+| Saudi     |        90 |
+| Turkey    |        92 |
++-----------+-----------+
+13 rows in set (0.00 sec)
+
+mysql> SELECT *
+    -> FROM Student
+    -> WHERE city = 'Hyderabad'
+    -> ORDER BY marks DESC
+    -> LIMIT 1;
++-----+-------+-------+-----------+------------+--------+
+| Sno | Sname | marks | city      | mobile     | gender |
++-----+-------+-------+-----------+------------+--------+
+|   1 | Neha  |    98 | Hyderabad | 8179151248 | Female |
++-----+-------+-------+-----------+------------+--------+
+1 row in set (0.00 sec)
+
+mysql> commit;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select *from Student;
++-----+------------+-------+-----------+------------+--------+
+| Sno | Sname      | marks | city      | mobile     | gender |
++-----+------------+-------+-----------+------------+--------+
+|   1 | Neha       |    98 | Hyderabad | 8179151248 | Female |
+|   2 | Charitha   |    97 | Chennai   | 8189123456 | Female |
+|   3 | Priya      |    96 | Delhi     | 8189123478 | Female |
+|   4 | Vyshnavi   |    92 | Gurgaon   | 8179151292 | Female |
+|   5 | Akhila     |    91 | Bangalore | 8189123412 | Female |
+|   6 | Jagana     |    96 | Mumbai    | 7889123478 | Female |
+|   7 | Aishwarya  |    93 | Lucknow   | 6689123478 | Female |
+|   8 | Ayzal      |    92 | Turkey    | 9189123478 | Female |
+|   9 | Esbilgic   |    96 | Paris     | 8889123478 | Female |
+|  10 | Mubashirra |    96 | Paris     | 8889123478 | Female |
+|  11 | Aira       |    90 | Saudi     | 9789123478 | Female |
+|  12 | AyezaKhan  |    94 | Istanbul  | 9289123478 | Female |
+|  13 | Zaid       |    96 | Pakistan  | 9089123478 | Male   |
+|  14 | Wahaj      |    92 | Hyderabad | 9089123478 | Male   |
+|  15 | Engin      |    90 | Canada    | 9089123478 | Male   |
++-----+------------+-------+-----------+------------+--------+
+15 rows in set (0.00 sec)
+
+
+
+
+
+1 row in set (0.00 sec)
+
+mysql> SELECT s.snum, s.sname, AVG(c.rating) AS avg_rating
+    -> FROM salespeople s
+    -> LEFT JOIN customer c ON s.snum = c.snum
+    -> GROUP BY s.snum, s.sname
+    -> ORDER BY avg_rating ASC
+    -> LIMIT 1;
++------+-------+------------+
+| snum | sname | avg_rating |
++------+-------+------------+
+| 1005 | Fran  |       NULL |
++------+-------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT s.snum, s.sname, MIN(c.rating) AS min_rating
+    -> FROM salespeople s
+    -> LEFT JOIN customer c ON s.snum = c.snum
+    -> GROUP BY s.snum, s.sname
+    -> ORDER BY min_rating ASC
+    -> LIMIT 1;
++------+--------+------------+
+| snum | sname  | min_rating |
++------+--------+------------+
+| 1007 | Rifkin |       NULL |
++------+--------+------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT s.snum, s.sname, s.city AS salesperson_city, c.city AS customer_city
+    -> FROM salespeople s
+    -> JOIN customer c ON s.snum = c.snum
+    -> WHERE s.city = c.city;
++------+-------+------------------+---------------+
+| snum | sname | salesperson_city | customer_city |
++------+-------+------------------+---------------+
+| 1001 | Peel  | London           | London        |
+| 1001 | Peel  | London           | London        |
+| 1001 | Peel  | London           | London        |
++------+-------+------------------+---------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT s.snum, s.sname
+    -> FROM salespeople s
+    -> WHERE s.snum IN (
+    ->     SELECT c.snum
+    ->     FROM customer c
+    ->     GROUP BY c.snum
+    ->     HAVING COUNT(c.cnum) > 1
+    -> );
++------+--------+
+| snum | sname  |
++------+--------+
+| 1001 | Peel   |
+| 1002 | Serres |
++------+--------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT c.cnum, c.cname, c.city, c.rating
+    -> FROM customer c
+    -> WHERE c.city = 'San Jose' AND c.rating > 200;
+Empty set (0.00 sec)
