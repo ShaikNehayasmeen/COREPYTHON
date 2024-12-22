@@ -1,0 +1,456 @@
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 5.5.16 MySQL Community Server (GPL)
+
+Copyright (c) 2000, 2011, Oracle and/or its affiliates. All rights reserved.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use Neha88
+Database changed
+mysql> Show tables;
++------------------+
+| Tables_in_neha88 |
++------------------+
+| customer         |
+| employees        |
+| salespeople      |
+| student          |
++------------------+
+4 rows in set (0.01 sec)
+
+mysql> CREATE TABLE orders (
+    ->          onum    INT  NOT NULL,
+    ->     amt  DECIMAL(7,2)  NOT NULL,
+    ->          odate  Date   NOT NULL,
+    ->  cnum  int  NOT NULL,
+    ->          PRIMARY KEY  (onum),
+    ->      FOREIGN KEY (cnum) REFERENCES customer(cnum)
+    ->        );
+Query OK, 0 rows affected (0.01 sec)
+
+mysql> INSERT INTO orders VALUES (3001, 18.69, '1996-03-10', 2008);
+Query OK, 1 row affected (0.01 sec)
+
+mysql> INSERT INTO orders VALUES (3003, 767.19, '1996-10-03', 2001);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO orders VALUES (3002, 1900.10, '1996-10-03', 2007);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO orders VALUES (3005, 5160.45, '1996-10-03', 2003);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO orders VALUES (3006, 1098.16, '1996-10-03', 2008);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO orders VALUES (3009, 1713.23, '1996-10-04', 2002);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO orders VALUES (3007, 75.75, '1996-10-04', 2002);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO orders VALUES (3008, 4723.00, '1996-10-05', 2006);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO orders VALUES (3010, 1309.95, '1996-10-06', 2004);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> INSERT INTO orders VALUES (3011, 9891.88, '1996-10-06', 2006);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select *from orders;
++------+---------+------------+------+
+| onum | amt     | odate      | cnum |
++------+---------+------------+------+
+| 3001 |   18.69 | 1996-03-10 | 2008 |
+| 3002 | 1900.10 | 1996-10-03 | 2007 |
+| 3003 |  767.19 | 1996-10-03 | 2001 |
+| 3005 | 5160.45 | 1996-10-03 | 2003 |
+| 3006 | 1098.16 | 1996-10-03 | 2008 |
+| 3007 |   75.75 | 1996-10-04 | 2002 |
+| 3008 | 4723.00 | 1996-10-05 | 2006 |
+| 3009 | 1713.23 | 1996-10-04 | 2002 |
+| 3010 | 1309.95 | 1996-10-06 | 2004 |
+| 3011 | 9891.88 | 1996-10-06 | 2006 |
++------+---------+------------+------+
+10 rows in set (0.00 sec)
+
+mysql> show tables;
++------------------+
+| Tables_in_neha88 |
++------------------+
+| customer         |
+| employees        |
+| orders           |
+| salespeople      |
+| student          |
++------------------+
+5 rows in set (0.00 sec)
+
+mysql> select *from salespeople;
++------+---------+-----------+------+
+| snum | sname   | city      | comm |
++------+---------+-----------+------+
+| 1001 | Peel    | London    | 0.12 |
+| 1002 | Serres  | San Jose  | 0.13 |
+| 1003 | AxelRod | NewYork   | 0.10 |
+| 1004 | Motika  | London    | 0.11 |
+| 1005 | Fran    | London    | 0.26 |
+| 1007 | Rifkin  | Barcelona | 0.15 |
++------+---------+-----------+------+
+6 rows in set (0.00 sec)
+
+mysql> select *from customers;
+ERROR 1146 (42S02): Table 'neha88.customers' doesn't exist
+mysql> select *from customer;
++------+----------+-----------+--------+------+
+| cnum | cname    | city      | rating | snum |
++------+----------+-----------+--------+------+
+| 2001 | Hoofman  | London    |    100 | 1001 |
+| 2002 | Glovanni | Rome      |    200 | 1003 |
+| 2003 | Liu      | Sans Jose |    200 | 1002 |
+| 2004 | Grass    | Berlin    |    300 | 1002 |
+| 2006 | Clemenes | London    |    100 | 1001 |
+| 2007 | Pereria  | Rome      |    100 | 1004 |
+| 2008 | Cisenors | London    |    100 | 1001 |
++------+----------+-----------+--------+------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     s.snum,
+    ->     s.sname,
+    ->     SUM(c.rating * s.comm) AS total_sales
+    -> FROM
+    ->     customer c
+    -> JOIN
+    ->     salesperson s ON c.snum = s.snum
+    -> GROUP BY
+    ->     s.snum, s.sname
+    -> ORDER BY
+    ->     total_sales DESC
+    -> LIMIT 1;
+ERROR 1146 (42S02): Table 'neha88.salesperson' doesn't exist
+mysql> SELECT
+    ->     s.snum,
+    ->     s.sname,
+    ->     SUM(c.rating * s.comm) AS total_sales
+    -> FROM
+    ->     customer c
+    -> JOIN
+    ->     salespeople s ON c.snum = s.snum
+    -> GROUP BY
+    ->     s.snum, s.sname
+    -> ORDER BY
+    ->     total_sales DESC
+    -> LIMIT 1;
++------+--------+-------------+
+| snum | sname  | total_sales |
++------+--------+-------------+
+| 1002 | Serres |       65.00 |
++------+--------+-------------+
+1 row in set (0.00 sec)
+
+mysql> SELECT
+    ->     s.snum,
+    ->     s.sname,
+    ->     SUM(c.rating * s.comm) AS total_sales
+    -> FROM
+    ->     customer c
+    -> JOIN
+    ->     salespeople s ON c.snum = s.snum
+    -> GROUP BY
+    ->     s.snum, s.sname
+    -> ORDER BY
+    ->     total_sales DESC
+    -> LIMIT 2;
++------+--------+-------------+
+| snum | sname  | total_sales |
++------+--------+-------------+
+| 1002 | Serres |       65.00 |
+| 1001 | Peel   |       36.00 |
++------+--------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     s.snum,
+    ->     s.sname,
+    ->     SUM(c.rating * s.comm) AS total_sales
+    -> FROM
+    ->     customer c
+    -> JOIN
+    ->     salespeople s ON c.snum = s.snum
+    -> GROUP BY
+    ->     s.snum, s.sname
+    -> ORDER BY
+    ->     total_sales DESC
+    -> LIMIT 2;
++------+--------+-------------+
+| snum | sname  | total_sales |
++------+--------+-------------+
+| 1002 | Serres |       65.00 |
+| 1001 | Peel   |       36.00 |
++------+--------+-------------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     s.snum,
+    ->     s.sname,
+    ->     SUM(c.rating * s.comm) AS total_sales
+    -> FROM
+    ->     customer c
+    -> JOIN
+    ->     salespeople s ON c.snum = s.snum
+    -> GROUP BY
+    ->     s.snum, s.sname
+    -> ORDER BY
+    ->     total_sales DESC
+    -> LIMIT 3;
++------+---------+-------------+
+| snum | sname   | total_sales |
++------+---------+-------------+
+| 1002 | Serres  |       65.00 |
+| 1001 | Peel    |       36.00 |
+| 1003 | AxelRod |       20.00 |
++------+---------+-------------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     s.snum,
+    ->     s.sname,
+    ->     COUNT(c.cnum) AS customer_count
+    -> FROM
+    ->     customer c
+    -> JOIN
+    ->     salespeople s ON c.snum = s.snum
+    -> GROUP BY
+    ->     s.snum, s.sname;
++------+---------+----------------+
+| snum | sname   | customer_count |
++------+---------+----------------+
+| 1001 | Peel    |              3 |
+| 1002 | Serres  |              2 |
+| 1003 | AxelRod |              1 |
+| 1004 | Motika  |              1 |
++------+---------+----------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     cnum,
+    ->     (SELECT cname FROM customer WHERE cnum = o.cnum) AS cname,
+    ->     COUNT(onum) AS order_count
+    -> FROM
+    ->     orders o
+    -> GROUP BY
+    ->     cnum
+    -> ORDER BY
+    ->     order_count DESC;
++------+----------+-------------+
+| cnum | cname    | order_count |
++------+----------+-------------+
+| 2006 | Clemenes |           2 |
+| 2002 | Glovanni |           2 |
+| 2008 | Cisenors |           2 |
+| 2001 | Hoofman  |           1 |
+| 2007 | Pereria  |           1 |
+| 2003 | Liu      |           1 |
+| 2004 | Grass    |           1 |
++------+----------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> select s.snum,s.sname,AVG(o.amt) AS avg_order from orders o,salespeople s,customer c where c.cnum=o.cnum and c.snum=s.snum group by s.snum,s.sname order by avg_order desc;
++------+---------+-------------+
+| snum | sname   | avg_order   |
++------+---------+-------------+
+| 1001 | Peel    | 3299.784000 |
+| 1002 | Serres  | 3235.200000 |
+| 1004 | Motika  | 1900.100000 |
+| 1003 | AxelRod |  894.490000 |
++------+---------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> select cnum,(select cname from customer where cnum=o.cnum) SUM(amt) as total_amount from orders o group by cnum order by total_amount desc;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'SUM(amt) as total_amount from orders o group by cnum order by total_amount desc' at line 1
+mysql> SELECT
+    ->     cnum,
+    ->     (SELECT cname FROM customer WHERE cnum = o.cnum) AS cname,
+    ->     SUM(amt) AS total_spent
+    -> FROM
+    ->     orders o
+    -> GROUP BY
+    ->     cnum
+    -> ORDER BY
+    ->     total_spent DESC;
++------+----------+-------------+
+| cnum | cname    | total_spent |
++------+----------+-------------+
+| 2006 | Clemenes |    14614.88 |
+| 2003 | Liu      |     5160.45 |
+| 2007 | Pereria  |     1900.10 |
+| 2002 | Glovanni |     1788.98 |
+| 2004 | Grass    |     1309.95 |
+| 2008 | Cisenors |     1116.85 |
+| 2001 | Hoofman  |      767.19 |
++------+----------+-------------+
+7 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     (SELECT city FROM customer WHERE cnum = o.cnum) AS city,
+    ->     SUM(o.amt) AS total_sales
+    -> FROM
+    ->     orders o
+    -> GROUP BY
+    ->     city
+    -> ORDER BY
+    ->     total_sales DESC;
++-----------+-------------+
+| city      | total_sales |
++-----------+-------------+
+| London    |    16498.92 |
+| Sans Jose |     5160.45 |
+| Rome      |     3689.08 |
+| Berlin    |     1309.95 |
++-----------+-------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     snum,
+    ->     (SELECT sname FROM salespeople WHERE snum = c.snum) AS sname,
+    ->     AVG(c.rating) AS avg_rating
+    -> FROM
+    ->     customer c
+    -> GROUP BY
+    ->     snum
+    -> ORDER BY
+    ->     avg_rating DESC;
++------+---------+------------+
+| snum | sname   | avg_rating |
++------+---------+------------+
+| 1002 | Serres  |   250.0000 |
+| 1003 | AxelRod |   200.0000 |
+| 1001 | Peel    |   100.0000 |
+| 1004 | Motika  |   100.0000 |
++------+---------+------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     s.snum,
+    ->     s.sname,
+    ->     COUNT(DISTINCT c.cnum) AS total_customers,
+    ->     COUNT(DISTINCT o.cnum) AS customers_with_orders,
+    ->     ROUND(
+    ->         (COUNT(DISTINCT o.cnum) / COUNT(DISTINCT c.cnum)) * 100, 2
+    ->     ) AS percentage_with_orders
+    -> FROM
+    ->     salespeople s
+    -> JOIN
+    ->     customer c ON s.snum = c.snum
+    -> LEFT JOIN
+    ->     orders o ON c.cnum = o.cnum
+    -> GROUP BY
+    ->     s.snum, s.sname
+    -> ORDER BY
+    ->     percentage_with_orders DESC;
++------+---------+-----------------+-----------------------+------------------------+
+| snum | sname   | total_customers | customers_with_orders | percentage_with_orders |
++------+---------+-----------------+-----------------------+------------------------+
+| 1004 | Motika  |               1 |                     1 |                 100.00 |
+| 1001 | Peel    |               3 |                     3 |                 100.00 |
+| 1002 | Serres  |               2 |                     2 |                 100.00 |
+| 1003 | AxelRod |               1 |                     1 |                 100.00 |
++------+---------+-----------------+-----------------------+------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select s.num(select sname from salespeople where snum=s.snum) as sname,SUM(select rating from customer where c.snum=s.snum and c.cnum=c.cnum)*(select comm from salespeople where snum=s.snum) as total_sales
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select sname from salespeople where snum=s.snum) as sname,SUM(select rating from' at line 1
+mysql> select s.num(select sname from salespeople where snum=s.snum) as sname,SUM(select rating from customer where c.snum=s.snum and c.cnum=c.cnum)*(select comm from salespeople where snum=s.snum) as total_sales from customer c group by s.snum order by total_sales desc limit1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select sname from salespeople where snum=s.snum) as sname,SUM(select rating from' at line 1
+mysql> SELECT
+    ->     s.snum,
+    ->     (SELECT sname FROM salespeople WHERE snum = s.snum) AS sname,
+    ->     SUM(
+    ->         (SELECT rating FROM customer WHERE c.snum = s.snum AND c.cnum = c.cnum) *
+    ->         (SELECT comm FROM salespeople WHERE snum = s.snum)
+    ->     ) AS total_sales
+    -> FROM
+    ->     customer c
+    -> GROUP BY
+    ->     s.snum
+    -> ORDER BY
+    ->     total_sales DESC
+    -> LIMIT 1;
+ERROR 1054 (42S22): Unknown column 's.snum' in 'field list'
+mysql> select c.cnum,c.cname,(select SUM(o.amt) from orders o where o.cnum=c.cnum) as total_revenue from customer c;
++------+----------+---------------+
+| cnum | cname    | total_revenue |
++------+----------+---------------+
+| 2001 | Hoofman  |        767.19 |
+| 2002 | Glovanni |       1788.98 |
+| 2003 | Liu      |       5160.45 |
+| 2004 | Grass    |       1309.95 |
+| 2006 | Clemenes |      14614.88 |
+| 2007 | Pereria  |       1900.10 |
+| 2008 | Cisenors |       1116.85 |
++------+----------+---------------+
+7 rows in set (0.00 sec)
+
+mysql> select c.cnum,c.cname from customer c where not exists(select 1 from orders o where o.cnum=c.cnum);
+Empty set (0.00 sec)
+
+mysql>
+mysql> SELECT
+    ->     s.snum,
+    ->     s.sname,
+    ->     (
+    ->
+    ->         SELECT SUM(o.amt) * s.comm
+    ->         FROM orders o, customer c
+    ->         WHERE o.cnum = c.cnum AND c.snum = s.snum
+    ->     ) /
+    ->     (
+    ->
+    ->         SELECT SUM(amt) FROM orders
+    ->     ) * 100 AS revenue_percentage
+    -> FROM
+    ->     salespeople s;
++------+---------+--------------------+
+| snum | sname   | revenue_percentage |
++------+---------+--------------------+
+| 1001 | Peel    |         7.42681631 |
+| 1002 | Serres  |         3.15529814 |
+| 1003 | AxelRod |         0.67107553 |
+| 1004 | Motika  |         0.78403430 |
+| 1005 | Fran    |               NULL |
+| 1007 | Rifkin  |               NULL |
++------+---------+--------------------+
+6 rows in set (0.00 sec)
+
+mysql> SELECT
+    ->     s.snum,
+    ->     s.sname,
+    ->     AVG(c.rating) AS avg_rating
+    -> FROM
+    ->     salespeople s
+    -> WHERE
+    ->     EXISTS (
+    ->         SELECT 1
+    ->         FROM customer c
+    ->         WHERE c.snum = s.snum
+    ->     )
+    -> GROUP BY
+    ->     s.snum, s.sname
+    -> ORDER BY
+    ->     avg_rating DESC
+    -> LIMIT 1;
+ERROR 1054 (42S22): Unknown column 'c.rating' in 'field list'
+mysql> commit
+    -> ;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql>

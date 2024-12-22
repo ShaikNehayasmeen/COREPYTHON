@@ -1,0 +1,39 @@
+The main objective is to do analytical processing of the data.
+1.Education Analysis
+2.Finance Analysis
+3.Social Analysis
+4.Migration Analysis
+
+1.Education Analysis
+Module:Education
+Schema(columns):Gender,Education,Age,citizenship,weeks-worked
+
+
+2.Social Analysis
+Module:Social
+Schema(columns):Marital-status,gender,parents,No.of Weeks worked,age,citizenship 
+
+
+3.Finance Analysis
+Module:Finance
+Schema(columns):TaxFilling Status,Income
+
+
+4.Migration Analysis
+Module:Workplace
+Schema(columns):CurrentCountry,citizenship
+
+
+5.Male/Female Analysis
+Module:SexRatio
+Schema(columns):Gender
+
+
+6.Social Welfare Analysis
+Gender,Age,MaritalStatus
+
+
+
+
+
+        
