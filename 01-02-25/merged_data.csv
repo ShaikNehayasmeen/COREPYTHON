@@ -1,0 +1,9 @@
+id,name,age,gender,location,customer_id,date,product_category,Return_status,Price
+1,,,,,101.0,2024-01-10,Electronics,Returned,2000.0
+2,,,,,102.0,2024-02-15,Clothing,Returned,2500.0
+3,,,,,103.0,2024-03-05,Groceries,Returned,800.0
+4,,,,,101.0,2024-04-20,Electronics,Returned,1500.0
+101,Alice,29.0,Female,Hyderabad,,,,,
+102,Bob,35.0,Male,Chennai,,,,,
+103,Charlie,42.0,Male,Mumbai,,,,,
+104,David,18.0,Female,Delhi,,,,,

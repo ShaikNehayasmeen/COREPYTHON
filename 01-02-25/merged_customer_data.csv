@@ -1,0 +1,5 @@
+id,first_name,last_name,email,phone_number,shipping_address,billing_address,customer_id,date,product_category,Return_status,Price
+1,Shaik,Neha,abc.com,,Khammam,Hyderabad,101,2024-01-10,Electronics,Returned,2000
+2,Shaik,Ayzal,vcd.com,,Us,Hyderabad,102,2024-02-15,Clothing,Returned,2500
+3,,,,,,,103,2024-03-05,Groceries,Returned,800
+4,,,,,,,101,2024-04-20,Electronics,Returned,1500
